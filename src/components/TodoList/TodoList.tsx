@@ -8,6 +8,7 @@ export enum TodoActions {
    ADD_TODO = 'ADD_TODO',
    DELETE_TODO = 'DELETE_TODO',
    TOGGLE_COMPLETE = 'TOGGLE_COMPLETE',
+   TOGGLE_HIDE_COMPLETED = 'TOGGLE_HIDE_COMPLETED',
 }
 
 type TTodosState = {
@@ -16,13 +17,14 @@ type TTodosState = {
 
 export type TTodosAction = {
    type: TodoActions;
-   payload: TTodo;
+   payload?: TTodo;
 };
 
 export type TTodo = {
    completed: boolean;
    description: string;
    id: number;
+   hidden: boolean;
 };
 
 const initialState: TTodosState = {
@@ -32,22 +34,34 @@ const initialState: TTodosState = {
 function todosReducer(state: TTodosState, action: TTodosAction): TTodosState {
    switch (action.type) {
       case TodoActions.ADD_TODO:
-         return { todos: [...state.todos, action.payload] };
+         return { todos: [action.payload!, ...state.todos] };
 
       case TodoActions.DELETE_TODO:
          return {
-            todos: state.todos.filter((el) => el.id !== action.payload.id),
+            todos: state.todos.filter((el) => el.id !== action.payload!.id),
          };
       case TodoActions.TOGGLE_COMPLETE:
          return {
             todos: state.todos.map((el) => {
-               if (el.id === action.payload.id) {
+               if (el.id === action.payload!.id) {
                   el.completed = !el.completed;
                   return el;
                }
                return el;
             }),
          };
+      case TodoActions.TOGGLE_HIDE_COMPLETED:
+         return {
+            todos: state.todos.map((el) => {
+               if (el.completed) {
+                  el.hidden = !el.hidden;
+                  return el;
+               }
+               return el;
+            }),
+         };
+      default:
+         return state;
    }
 }
 
@@ -57,7 +71,7 @@ export default function TodoList() {
    console.log(state);
    return (
       <div className={styles.main_wrapper}>
-         <HideCompleted />
+         <HideCompleted dispatch={dispatch} />
          <TaskInput dispatch={dispatch} />
          <TaskList
             dispatch={dispatch}

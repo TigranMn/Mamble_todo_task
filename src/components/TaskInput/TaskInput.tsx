@@ -23,7 +23,12 @@ export default function TaskInput(props: TTaskInputProps) {
       if (description.trim().length) {
          dispatch({
             type: TodoActions.ADD_TODO,
-            payload: { description, completed: false, id: Date.now() },
+            payload: {
+               description,
+               completed: false,
+               id: Date.now(),
+               hidden: false,
+            },
          });
       }
       setDescription('');

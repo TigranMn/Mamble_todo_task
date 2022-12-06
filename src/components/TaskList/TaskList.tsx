@@ -20,13 +20,13 @@ export default function TaskList(props: TTaskListProps) {
       <div className={styles.tasks_list_section}>
          <ul className={styles.tasks_list}>
             {todos.map((el) => {
-               return (
+               return !el.hidden ? (
                   <Task
                      key={el.id}
                      todo={el}
                      dispatch={dispatch}
                   />
-               );
+               ) : null;
             })}
          </ul>
       </div>

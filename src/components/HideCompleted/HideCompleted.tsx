@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Checkbox from '../Checkbox/Checkbox';
+import { TodoActions, TTodosAction } from '../TodoList/TodoList';
 import styles from './HideCompleted.module.css';
 
-export default function HideCompleted() {
+type THideCompletedProps = {
+   dispatch: (action: TTodosAction) => void;
+};
+
+export default function HideCompleted(props: THideCompletedProps) {
+   const { dispatch } = props;
+   const [hidden, setHidden] = useState<boolean>(false);
    return (
       <div className={styles.hide_check}>
          <Checkbox
-            checked={false}
+            checked={hidden}
             onClick={() => {
-               console.log(1);
+               setHidden(!hidden);
+               dispatch({ type: TodoActions.TOGGLE_HIDE_COMPLETED });
             }}
          />
          <span>Hide completed</span>
