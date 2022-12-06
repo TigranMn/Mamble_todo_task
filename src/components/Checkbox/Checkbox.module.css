@@ -1,0 +1,5 @@
+.non_checked,
+.checked {
+   vertical-align: middle;
+   cursor: pointer;
+}
