@@ -17,7 +17,7 @@ export default function Task(props: TTaskProps) {
                dispatch({ type: TodoActions.TOGGLE_COMPLETE, payload: todo });
             }}
          />
-         <span style={{ color: !todo.completed ? '#666666' : 'pink' }}>
+         <span style={{ color: !todo.completed ? '#666666' : '#ACACAC' }}>
             {todo.description}
          </span>
          <svg

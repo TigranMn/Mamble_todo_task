@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import HideCompleted from '../HideCompleted/HideCompleted';
 import TaskInput from '../TaskInput/TaskInput';
 import TaskList from '../TaskList/TaskList';
@@ -28,7 +28,7 @@ export type TTodo = {
 };
 
 const initialState: TTodosState = {
-   todos: [],
+   todos: JSON.parse(localStorage.getItem('todos')!) || [],
 };
 
 function todosReducer(state: TTodosState, action: TTodosAction): TTodosState {
@@ -68,7 +68,10 @@ function todosReducer(state: TTodosState, action: TTodosAction): TTodosState {
 export default function TodoList() {
    const [state, dispatch] = useReducer(todosReducer, initialState);
 
-   console.log(state);
+   useEffect(() => {
+      localStorage.setItem('todos', JSON.stringify(state.todos));
+   }, [state.todos]);
+
    return (
       <div className={styles.main_wrapper}>
          <HideCompleted dispatch={dispatch} />
