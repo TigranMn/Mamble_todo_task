@@ -1,4 +1,11 @@
 .main_wrapper {
    width: 100%;
-   padding: 146px 190px 180px 80px;
+   padding: 146px 190px 0px 80px;
+}
+
+@media screen and (max-width: 970px) {
+   .main_wrapper {
+      width: 100%;
+      padding: 88px 24px 0px 24px;
+   }
 }

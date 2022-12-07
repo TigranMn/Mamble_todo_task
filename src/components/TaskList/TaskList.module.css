@@ -29,6 +29,7 @@
 .tasks_list li {
    display: flex;
    justify-content: space-between;
+   align-items: center;
    width: 100%;
    padding: 20px 0 20px 2px;
    border-bottom: 1px solid #e5e5e5;
@@ -36,4 +37,14 @@
 
 .tasks_list li:last-child {
    border-bottom: none;
+}
+
+@media screen and (max-width: 680px) {
+   .tasks_list {
+      margin-right: 0;
+   }
+   .tasks_list span {
+      margin-left: 8px;
+      padding-right: 20px;
+   }
 }
