@@ -11,10 +11,6 @@ type THideCompletedProps = {
 export default function HideCompleted(props: THideCompletedProps) {
    const { dispatch, hideCompleted } = props;
 
-   useEffect(() => {
-      dispatch({ type: TodoActions.HIDE_COMPLETED });
-   }, [hideCompleted]);
-
    const handleCheck = () => {
       dispatch({ type: TodoActions.TOGGLE_HIDE_COMPLETED });
    };

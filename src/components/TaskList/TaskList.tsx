@@ -1,15 +1,19 @@
 import React from 'react';
 import Task from '../Task/Task';
-import { TTodo, TTodosAction } from '../TodoList/TodoList';
+import { TTodosAction, TTodosState } from '../TodoList/TodoList';
 import styles from './TaskList.module.css';
 
 type TTaskListProps = {
    dispatch: (action: TTodosAction) => void;
-   todos: TTodo[];
+   state: TTodosState;
 };
 
 export default function TaskList(props: TTaskListProps) {
-   const { dispatch, todos } = props;
+   const {
+      dispatch,
+      state: { todos, hideCompleted },
+   } = props;
+
    return !todos.length ? (
       <div className={styles.empty_zone_section}>
          <p>Your life is a blank page. You write on it.</p>
@@ -19,7 +23,7 @@ export default function TaskList(props: TTaskListProps) {
       <div className={styles.tasks_list_section}>
          <ul className={styles.tasks_list}>
             {todos.map((el) => {
-               return !el.hidden ? (
+               return !el.completed || !hideCompleted ? (
                   <Task
                      key={el.id}
                      todo={el}

@@ -8,11 +8,10 @@ export enum TodoActions {
    ADD_TODO = 'ADD_TODO',
    DELETE_TODO = 'DELETE_TODO',
    TOGGLE_COMPLETE = 'TOGGLE_COMPLETE',
-   HIDE_COMPLETED = 'HIDE_COMPLETED',
    TOGGLE_HIDE_COMPLETED = 'TOGGLE_HIDE_COMPLETED',
 }
 
-type TTodosState = {
+export type TTodosState = {
    todos: TTodo[];
    hideCompleted: boolean;
 };
@@ -26,7 +25,6 @@ export type TTodo = {
    completed: boolean;
    description: string;
    id: number;
-   hidden: boolean;
 };
 
 const initialState: TTodosState = {
@@ -51,26 +49,12 @@ function todosReducer(state: TTodosState, action: TTodosAction): TTodosState {
             todos: state.todos.map((el) => {
                if (el.id === action.payload!.id) {
                   el.completed = !el.completed;
-                  if (state.hideCompleted) {
-                     el.hidden = !el.hidden;
-                  }
                   return el;
                }
                return el;
             }),
          };
       }
-      case TodoActions.HIDE_COMPLETED:
-         return {
-            ...state,
-            todos: state.todos.map((el) => {
-               if (el.completed) {
-                  el.hidden = state.hideCompleted;
-                  return el;
-               }
-               return el;
-            }),
-         };
       case TodoActions.TOGGLE_HIDE_COMPLETED:
          return { ...state, hideCompleted: !state.hideCompleted };
       default:
@@ -94,7 +78,7 @@ export default function TodoList() {
          <TaskInput dispatch={dispatch} />
          <TaskList
             dispatch={dispatch}
-            todos={state.todos}
+            state={state}
          />
       </div>
    );

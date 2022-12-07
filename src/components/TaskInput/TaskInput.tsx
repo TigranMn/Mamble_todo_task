@@ -29,7 +29,6 @@ export default function TaskInput(props: TTaskInputProps) {
                description,
                completed: false,
                id: Date.now(),
-               hidden: false,
             },
          });
       }
