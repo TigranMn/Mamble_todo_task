@@ -1,5 +1,4 @@
 import React from 'react';
-import Checkbox from '../Checkbox/Checkbox';
 import Task from '../Task/Task';
 import { TTodo, TTodosAction } from '../TodoList/TodoList';
 import styles from './TaskList.module.css';
